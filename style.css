@@ -3,34 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¿Dónde está Toby? | Boceto Animado a Lápiz</title>
+  <title>¿Dónde está Toby? | Narrativa Hipertextual</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap');
 
     :root {
-      --paper-bg: #f5eedc;
-      --paper-line: #e3d5be;
-      --pencil: #2a2829;
-      --pencil-light: #5a5658;
-      --graphite-shade: #787376;
-      --highlight: #d94e34;
-      --notebook-shadow: 0 12px 35px rgba(45, 38, 30, 0.25);
+      --paper: #fbf6ec;
+      --charcoal: #23201e;
+      --pencil-dark: #3a3431;
+      --accent-red: #c0392b;
+      --accent-green: #2d6a4f;
+      --accent-blue: #2c5282;
+      --accent-gold: #d97706;
+      --tape: #e2cca1;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
     }
 
     body {
-      background-color: #2b2622;
+      background: #181514;
       background-image: 
-        radial-gradient(#3a332d 15%, transparent 16%), 
-        radial-gradient(#3a332d 15%, transparent 16%);
-      background-size: 30px 30px;
-      background-position: 0 0, 15px 15px;
-      color: var(--pencil);
+        radial-gradient(circle at 50% 50%, #292420 0%, #0f0d0c 100%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 4px);
+      color: var(--charcoal);
       font-family: 'Patrick Hand', cursive, sans-serif;
       min-height: 100vh;
       display: flex;
@@ -39,250 +40,244 @@
       padding: 16px;
     }
 
-    /* FILTRO SVG PARA TRAZO DE LÁPIZ ORGÁNICO RUGOSO */
-    svg.filters {
-      position: absolute;
-      width: 0;
-      height: 0;
-    }
-
     header {
       width: 100%;
-      max-width: 880px;
-      background: var(--paper-bg);
-      padding: 14px 24px;
-      border: 3px solid var(--pencil);
-      border-radius: 4px 14px 6px 12px;
-      box-shadow: 4px 5px 0px var(--pencil);
+      max-width: 920px;
+      background: var(--paper);
+      padding: 14px 26px;
+      border: 3px solid var(--charcoal);
+      border-radius: 8px 18px 6px 14px;
+      box-shadow: 5px 6px 0px var(--charcoal);
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
-      transform: rotate(-0.4deg);
+      position: relative;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 40px;
+      width: 110px;
+      height: 25px;
+      background: var(--tape);
+      transform: rotate(-2.5deg);
+      border: 1px dashed rgba(0,0,0,0.25);
     }
 
     h1 {
       font-family: 'Caveat', cursive;
-      font-size: 2.2rem;
-      letter-spacing: 1px;
-      color: var(--pencil);
+      font-size: 2.3rem;
+      letter-spacing: 0.5px;
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .controls-bar {
+    .top-controls {
       display: flex;
       gap: 10px;
     }
 
-    button {
+    button.sketch-btn {
       cursor: pointer;
-      background: #fdfaf3;
-      border: 2px solid var(--pencil);
-      border-radius: 6px 12px 4px 8px;
+      background: #fffdf9;
+      border: 2px solid var(--charcoal);
       font-family: 'Patrick Hand', cursive;
       font-size: 1.15rem;
-      padding: 6px 14px;
-      color: var(--pencil);
-      box-shadow: 2px 3px 0px var(--pencil);
+      padding: 6px 15px;
+      color: var(--charcoal);
+      box-shadow: 2px 3px 0px var(--charcoal);
       transition: all 0.15s ease;
+      border-radius: 6px 12px 4px 8px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
 
-    button:hover {
+    button.sketch-btn:hover {
       transform: translate(-1px, -2px);
-      box-shadow: 4px 5px 0px var(--highlight);
-      border-color: var(--highlight);
-      color: var(--highlight);
+      box-shadow: 4px 5px 0px var(--accent-red);
+      color: var(--accent-red);
+      border-color: var(--accent-red);
     }
 
-    button:active {
-      transform: translate(2px, 2px);
-      box-shadow: 0px 0px 0px var(--pencil);
-    }
-
-    /* CONTENEDOR TIPO CUADERNO DE BOCETOS */
     .notebook {
       width: 100%;
-      max-width: 880px;
-      background: var(--paper-bg);
-      /* Textura papel artesanal cuadriculado tenue */
+      max-width: 920px;
+      background: var(--paper);
       background-image: 
-        linear-gradient(to right, rgba(160, 140, 115, 0.15) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(160, 140, 115, 0.15) 1px, transparent 1px);
-      background-size: 24px 24px;
-      border: 3px solid var(--pencil);
-      border-radius: 6px 16px 8px 14px;
-      box-shadow: var(--notebook-shadow), 6px 8px 0px var(--pencil);
+        radial-gradient(ellipse at 80% 20%, rgba(58, 52, 49, 0.04) 0%, transparent 60%),
+        linear-gradient(to right, rgba(160, 140, 115, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(160, 140, 115, 0.1) 1px, transparent 1px);
+      background-size: 100% 100%, 26px 26px, 26px 26px;
+      border: 3px solid var(--charcoal);
+      border-radius: 8px 20px 10px 16px;
+      box-shadow: 7px 9px 0px var(--charcoal), var(--shadow);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      position: relative;
     }
 
-    /* ESPACIO DE VISUALIZACIÓN ILUSTRADO / ANIMADO */
-    .viewport {
+    .stage {
       width: 100%;
-      height: 420px;
+      height: 450px;
       position: relative;
-      border-bottom: 3px dashed var(--pencil-light);
-      background: #faf4e8;
+      background: #faf4e5;
+      border-bottom: 3px dashed var(--pencil-dark);
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* EFECTO BOILING LINE (Vibración de lápiz cuadro a cuadro tradicional) */
-    .sketch-svg {
+    .scene-svg {
       width: 100%;
       height: 100%;
-      filter: url(#pencil-texture);
-      animation: lineBoil 0.35s steps(2) infinite;
+      display: block;
     }
 
-    @keyframes lineBoil {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-0.8px, 0.7px) scale(1.002); }
-      100% { transform: translate(0.6px, -0.6px) scale(0.999); }
-    }
-
-    /* Elementos animados dibujados */
-    .anim-wag-pencil {
-      transform-origin: 395px 260px;
-      animation: wagPencil 0.5s steps(3) infinite alternate;
-    }
-
-    @keyframes wagPencil {
-      from { transform: rotate(-12deg); }
-      to { transform: rotate(18deg); }
-    }
-
-    .anim-bob-pencil {
-      animation: bobPencil 0.7s steps(2) infinite alternate;
-    }
-
-    @keyframes bobPencil {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-7px); }
-    }
-
-    /* Lupa / Marcador interactivo en lápiz rojo (Control Exploratorio 1) */
-    .sketch-hotspot {
-      position: absolute;
-      width: 48px;
-      height: 48px;
-      border: 3px dashed var(--highlight);
-      border-radius: 50%;
-      background: rgba(217, 78, 52, 0.15);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      animation: hotspotJiggle 0.6s infinite alternate ease-in-out;
-      z-index: 10;
-    }
-
-    @keyframes hotspotJiggle {
-      0% { transform: scale(1) rotate(-4deg); }
-      100% { transform: scale(1.15) rotate(5deg); }
-    }
-
-    /* Reproductor de Video para los 3 Nodos Audiovisuales */
-    .video-canvas {
+    .video-container {
       width: 100%;
       height: 100%;
       position: relative;
       display: none;
-      background: #111;
     }
 
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .video-tag {
+    .video-badge {
       position: absolute;
       top: 14px;
-      left: 14px;
-      background: var(--paper-bg);
-      border: 2px solid var(--pencil);
-      padding: 4px 10px;
-      font-size: 0.95rem;
+      left: 16px;
+      background: #fff;
+      border: 2px solid var(--charcoal);
+      padding: 5px 14px;
+      font-size: 1.05rem;
       font-weight: bold;
-      box-shadow: 2px 2px 0px var(--pencil);
+      color: var(--accent-red);
+      box-shadow: 2px 2px 0px var(--charcoal);
+      z-index: 5;
     }
 
-    /* CONTENIDO DEL TEXTO NARRATIVO */
-    .content-area {
-      padding: 24px;
+    .video-player-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 2px solid var(--charcoal);
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 3px 3px 0px var(--charcoal);
+      z-index: 5;
+    }
+
+    .timeline-track {
+      flex: 1;
+      height: 10px;
+      background: #e4d7c0;
+      border: 1.5px solid var(--charcoal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-progress {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-red);
+      transition: width 0.08s linear;
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 3px dashed var(--accent-red);
+      border-radius: 50%;
+      background: rgba(192, 57, 43, 0.22);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      z-index: 10;
+      animation: pulseMarker 0.8s infinite alternate ease-in-out;
+    }
+    @keyframes pulseMarker {
+      0% { transform: scale(1) rotate(-8deg); }
+      100% { transform: scale(1.2) rotate(10deg); }
+    }
+
+    .story-section {
+      padding: 24px 32px;
     }
 
     .status-row {
       display: flex;
       justify-content: space-between;
-      border-bottom: 2px solid var(--paper-line);
+      border-bottom: 2px dashed rgba(58, 52, 49, 0.35);
       padding-bottom: 6px;
       margin-bottom: 12px;
-      font-size: 1.25rem;
-      color: var(--highlight);
       font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--accent-red);
     }
 
-    .narrative-text {
+    .story-text {
       font-size: 1.45rem;
-      line-height: 1.5;
-      color: var(--pencil);
-      margin-bottom: 24px;
+      line-height: 1.45;
+      color: var(--charcoal);
+      margin-bottom: 22px;
       min-height: 60px;
     }
 
-    .options-label {
+    .options-title {
       font-family: 'Caveat', cursive;
-      font-size: 1.4rem;
-      color: var(--pencil-light);
+      font-size: 1.55rem;
+      color: var(--pencil-dark);
       margin-bottom: 8px;
     }
 
-    .choices-row {
+    .choices-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 12px;
     }
 
-    .choice-card {
+    .choice-btn {
       background: #fffdf9;
-      border: 2px solid var(--pencil);
+      border: 2px solid var(--charcoal);
       border-radius: 6px 12px 5px 10px;
       padding: 12px 18px;
-      font-size: 1.25rem;
-      color: var(--pencil);
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1.35rem;
+      color: var(--charcoal);
       cursor: pointer;
       text-align: left;
-      box-shadow: 3px 3px 0px var(--pencil);
+      box-shadow: 3px 3px 0px var(--charcoal);
       transition: all 0.15s ease;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .choice-card:hover {
-      background: var(--paper-bg);
-      border-color: var(--highlight);
-      color: var(--highlight);
+    .choice-btn:hover {
+      background: var(--paper);
+      border-color: var(--accent-red);
+      color: var(--accent-red);
       transform: translateY(-2px);
-      box-shadow: 4px 5px 0px var(--highlight);
+      box-shadow: 4px 5px 0px var(--accent-red);
     }
 
-    /* MODALES DE MAPA Y PISTAS */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(30, 25, 20, 0.75);
+      background: rgba(18, 15, 14, 0.85);
       z-index: 100;
       align-items: center;
       justify-content: center;
@@ -290,18 +285,18 @@
     }
 
     .modal-sheet {
-      background: var(--paper-bg);
-      border: 3px solid var(--pencil);
-      border-radius: 6px 16px 8px 14px;
-      max-width: 650px;
+      background: var(--paper);
+      border: 3px solid var(--charcoal);
+      border-radius: 8px 18px 8px 14px;
+      max-width: 700px;
       width: 100%;
-      padding: 24px;
+      padding: 26px;
       box-shadow: 8px 10px 0px #000;
     }
 
     .modal-sheet h2 {
       font-family: 'Caveat', cursive;
-      font-size: 2rem;
+      font-size: 2.25rem;
       margin-bottom: 10px;
     }
 
@@ -312,366 +307,742 @@
       margin: 16px 0;
     }
 
-    .node-tag {
-      border: 2px solid var(--pencil);
+    .node-pill {
+      border: 2px solid var(--charcoal);
       background: #faf4e8;
       padding: 6px 12px;
       border-radius: 6px;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
 
-    .node-tag.current {
-      background: var(--highlight);
+    .node-pill.current {
+      background: var(--accent-red);
       color: #fff;
-      border-color: var(--highlight);
+      border-color: var(--accent-red);
     }
 
-    .node-tag.visited {
-      border-color: #2b7a4b;
-      color: #2b7a4b;
+    .node-pill.visited {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
       font-weight: bold;
     }
+
+    /* ESTILO TRADICIONAL DE ANIMACIÓN */
+    .line-boil {
+      /* Movimiento estático sin temblor para no marear */
+    }
+
+    .curtain-sway {
+      transform-origin: top left;
+      animation: curtainBreeze 3.2s ease-in-out infinite alternate;
+    }
+    @keyframes curtainBreeze {
+      0% { transform: skewX(0deg); }
+      100% { transform: skewX(-4deg); }
+    }
+
+    /* Nodo 1: Personaje firme sobre el piso del living */
+    
+      50% { transform: translateY(-4px); }
+    }
+
+    /* Nodo 8: Pelota rebotando por el parque con arco dinámico y fluido */
+    .ball-bounce-smooth {
+      animation: ballTrackWide 3.5s ease-in-out infinite;
+    }
+    @keyframes ballTrackWide {
+      0% { transform: translate(120px, 180px) rotate(0deg); }
+      20% { transform: translate(250px, 340px) scale(1.1, 0.85) rotate(180deg); }
+      25% { transform: translate(280px, 280px) scale(0.9, 1.1) rotate(240deg); }
+      45% { transform: translate(400px, 345px) scale(1.12, 0.88) rotate(420deg); }
+      50% { transform: translate(440px, 270px) scale(0.95, 1.05) rotate(490deg); }
+      70% { transform: translate(550px, 348px) scale(1.08, 0.92) rotate(640deg); }
+      80% { transform: translate(580px, 310px) rotate(720deg); }
+      92% { transform: translate(630px, 350px) rotate(840deg); }
+      100% { transform: translate(120px, 180px) rotate(0deg); }
+    }
+
+    .toby-hide-peek {
+      transform-origin: 660px 320px;
+      animation: tobyPeekSmooth 3.6s ease-in-out infinite;
+    }
+    @keyframes tobyPeekSmooth {
+      0%, 30% { transform: translateY(45px); opacity: 0; }
+      45%, 80% { transform: translateY(0); opacity: 1; }
+      92%, 100% { transform: translateY(45px); opacity: 0; }
+    }
+
+    /* Nodo 11 y 12: Salto y cola fluida */
+    .toby-leap-smooth {
+      transform-origin: 470px 330px;
+      animation: tobyJoyHop 0.9s ease-in-out infinite alternate;
+    }
+    @keyframes tobyJoyHop {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-42px); }
+    }
+
+    .toby-tail-fluid {
+      transform-origin: 410px 235px;
+      animation: tailSwing 0.28s ease-in-out infinite alternate;
+    }
+    @keyframes tailSwing {
+      0% { transform: rotate(-30deg); }
+      100% { transform: rotate(35deg); }
+    }
+
+    .hearts-floating {
+      animation: heartsFly 1.8s ease-in-out infinite;
+    }
+    @keyframes heartsFly {
+      0% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+      50% { transform: translate(12px, -28px) scale(1.15); opacity: 1; }
+      100% { transform: translate(20px, -55px) scale(0.9); opacity: 0; }
+    }
+
+    /* Nodo 9: Animación simple y limpia corriendo */
+    
+      100% { transform: translateY(-10px) rotate(-9deg); }
+    }
+
+    /* Brisa sutil en plantas */
+    .breeze-leaf {
+      transform-origin: bottom center;
+      animation: softBreeze 2.8s ease-in-out infinite alternate;
+    }
+    @keyframes softBreeze {
+      0% { transform: rotate(-2deg); }
+      100% { transform: rotate(3deg); }
+    }
+
+    /* Agua de la fuente en la plaza */
+    .water-spray {
+      animation: waterSprayAnim 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes waterSprayAnim {
+      0% { transform: scaleY(0.9); }
+      100% { transform: scaleY(1.1); }
+    }
+  
+    /* Nodo 1: Personaje firme en el living sin desplazarse verticalmente */
+    .hero-house-anim {
+      transform-origin: center bottom;
+      animation: heroHouseIdle 3s ease-in-out infinite alternate;
+    }
+    @keyframes heroHouseIdle {
+      0% { transform: translate(380px, 205px); }
+      100% { transform: translate(380px, 201px); }
+    }
+
+    /* Nodo 9: Corredor bajado al centro-piso, sin tocar el borde superior */
+    .runner-body {
+      animation: runBobbingClean 0.35s ease-in-out infinite alternate;
+    }
+    @keyframes runBobbingClean {
+      0% { transform: translate(360px, 220px) rotate(-4deg); }
+      100% { transform: translate(360px, 212px) rotate(-7deg); }
+    }
+
+    /* Nodo 12: Cola de Toby con pivote LOCAL exacto en el anca */
+    .toby-tail-wag-clean {
+      transform-origin: 15px 45px;
+      animation: wagTailNatural 0.28s ease-in-out infinite alternate;
+    }
+    @keyframes wagTailNatural {
+      0% { transform: rotate(-22deg); }
+      100% { transform: rotate(26deg); }
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- Filtro SVG para simular textura rugosa y granulada de grafito/papel -->
-  <svg class="filters">
-    <filter id="pencil-texture">
-      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2" xChannelSelector="R" yChannelSelector="G" />
-    </filter>
-  </svg>
-
   <header>
-    <h1>📓 ¿Dónde está Toby? (Boceto a Lápiz)</h1>
-    <div class="controls-bar">
-      <button onclick="toggleAudio()" id="audioBtn">✏️ Sonido: Trazo ON</button>
-      <button onclick="openModal('mapModal')">🗺️ Mapa de Nodos</button>
-      <button onclick="openModal('cluesModal')">🎒 Pistas (<span id="clueCount">0</span>)</button>
+    <h1>📓 ¿Dónde está Toby?</h1>
+    <div class="top-controls">
+      <button class="sketch-btn" onclick="toggleSound()" id="audioBtn">✏️ Sonido: ON</button>
+      <button class="sketch-btn" onclick="openModal('mapModal')">🗺️ Mapa de Nodos</button>
+      <button class="sketch-btn" onclick="openModal('cluesModal')">🎒 Pistas (<span id="clueBadge">0</span>)</button>
     </div>
   </header>
 
   <main class="notebook">
-    <!-- Ventana visual: Animación 2D a lápiz o Video Embebido -->
-    <div class="viewport" id="viewport">
-      <div id="sketchContainer" style="width: 100%; height: 100%;"></div>
+    <div class="stage" id="stage">
+      <div id="artStage" style="width: 100%; height: 100%;"></div>
 
-      <!-- Contenedor para los 3 videos de producción propia -->
-      <div class="video-canvas" id="videoCanvas">
-        <span class="video-tag">🎬 Pieza Audiovisual Propia</span>
-        <video id="sceneVideo" controls playsinline></video>
+      <div class="video-container" id="videoContainer">
+        <span class="video-badge" id="videoTitleBadge">🎬 Pieza Audiovisual Propia</span>
+        <div id="videoAnimArea" style="width: 100%; height: 100%;"></div>
+
+        <div class="video-player-bar">
+          <button class="sketch-btn" style="padding: 3px 10px;" onclick="togglePlay()" id="playBtn">⏸ Pausa</button>
+          <div class="timeline-track">
+            <div class="timeline-progress" id="timeProgress"></div>
+          </div>
+          <span style="font-size: 1.1rem; color: var(--pencil-dark);" id="timerText">00:03 / 00:05</span>
+        </div>
       </div>
 
-      <!-- Hotspot exploratorio interactivo estilo marca de lápiz rojo -->
-      <div class="sketch-hotspot" id="hotspot" style="display:none;" onclick="inspectClue()">✏️</div>
+      <div class="hotspot" id="hotspotMarker" style="display:none;" onclick="triggerHotspot()">🔍</div>
     </div>
 
-    <!-- Texto narrativo hipertextual -->
-    <div class="content-area">
+    <div class="story-section">
       <div class="status-row">
-        <span id="nodeTitle">Nodo 1: La desaparición</span>
-        <span id="nodeDepth">Profundidad: Nivel 1</span>
+        <span id="nodeTitleTxt">Nodo 1: La desaparición</span>
+        <span id="nodeDepthTxt">Nivel 1 de interacción</span>
       </div>
-      <p class="narrative-text" id="nodeDesc">Cargando trazo...</p>
+      <p class="story-text" id="nodeDescTxt">Cargando la historia...</p>
 
-      <div class="options-label">¿Hacia dónde buscas ahora?</div>
-      <div class="choices-row" id="choicesRow"></div>
+      <div class="options-title">¿Qué decisión tomas ahora?</div>
+      <div class="choices-grid" id="choicesGrid"></div>
     </div>
   </main>
 
-  <!-- MODAL MAPA HIPERTEXTUAL (Control Exploratorio 2) -->
   <div class="modal-overlay" id="mapModal" onclick="closeModal(event, 'mapModal')">
     <div class="modal-sheet" onclick="event.stopPropagation()">
-      <h2>🗺️ Mapa de Rutas Trazadas</h2>
-      <p>Visualiza el esquema del diagrama y los nodos que ya has explorado a lápiz:</p>
-      <div class="map-grid" id="mapGrid"></div>
-      <button onclick="document.getElementById('mapModal').style.display='none'">Volver a la historia</button>
+      <h2>🗺️ Mapa de Nodos del Proyecto</h2>
+      <p style="font-size: 1.25rem;">Estructura del diagrama interactivo. Los nodos explorados se iluminan en verde:</p>
+      <div class="map-grid" id="mapPills"></div>
+      <button class="sketch-btn" onclick="document.getElementById('mapModal').style.display='none'">Regresar</button>
     </div>
   </div>
 
-  <!-- MODAL BITÁCORA DE PISTAS (Control Exploratorio 3) -->
   <div class="modal-overlay" id="cluesModal" onclick="closeModal(event, 'cluesModal')">
     <div class="modal-sheet" onclick="event.stopPropagation()">
-      <h2>🎒 Pistas Anotadas en la Libreta</h2>
-      <ul id="cluesList" style="margin: 16px 0 16px 24px; font-size: 1.3rem; line-height: 1.6;">
-        <li>Aún no has anotado pistas en esta página. Busca los círculos con lápiz rojo ✏️.</li>
+      <h2>🎒 Bitácora de Pistas Descubiertas</h2>
+      <ul id="cluesListUl" style="margin: 16px 0 16px 24px; font-size: 1.35rem; line-height: 1.6;">
+        <li>Aún no has registrado pistas. Busca la lupa roja 🔍 en la escena.</li>
       </ul>
-      <button onclick="document.getElementById('cluesModal').style.display='none'">Guardar libreta</button>
+      <button class="sketch-btn" onclick="document.getElementById('cluesModal').style.display='none'">Guardar</button>
     </div>
   </div>
 
   <script>
-    // Sintetizador Web Audio API: Sonido de rasgado de lápiz sobre papel y ladridos rústicos
     let audioCtx = null;
-    let soundEnabled = true;
+    let soundOn = true;
 
     function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
 
-    function playPaperPencilSound() {
-      if (!soundEnabled) return;
+    function playAudioFx(type) {
+      if (!soundOn) return;
       initAudio();
-      
-      // Simula fricción de grafito sobre papel
-      const bufferSize = audioCtx.sampleRate * 0.12;
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const output = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        output[i] = Math.random() * 2 - 1;
+      const now = audioCtx.currentTime;
+
+      if (type === 'step') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(170, now);
+        osc.frequency.exponentialRampToValueAtTime(55, now + 0.1);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(now + 0.1);
+      } else if (type === 'bark') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(420, now);
+        osc.frequency.exponentialRampToValueAtTime(150, now + 0.16);
+        gain.gain.setValueAtTime(0.26, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.18);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(now + 0.18);
+      } else if (type === 'clue') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(523, now);
+        osc.frequency.exponentialRampToValueAtTime(1046, now + 0.25);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(now + 0.25);
       }
-      const whiteNoise = audioCtx.createBufferSource();
-      whiteNoise.buffer = buffer;
-
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.value = 1200;
-      filter.Q.value = 3.0;
-
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
-
-      whiteNoise.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioCtx.destination);
-      whiteNoise.start();
     }
 
-    function toggleAudio() {
-      soundEnabled = !soundEnabled;
-      document.getElementById('audioBtn').innerText = soundEnabled ? '✏️ Sonido: Trazo ON' : '🔇 Sonido: OFF';
+    function toggleSound() {
+      soundOn = !soundOn;
+      document.getElementById('audioBtn').innerText = soundOn ? '✏️ Sonido: ON' : '🔇 Sonido: OFF';
     }
 
-    // ILUSTRACIONES 2D EN ESTILO BOCETO A LÁPIZ Y PAPEL (SVG Hand-drawn)
-    const pencilScenes = {
-      patio: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Textura de fondo con rayado de sombreado -->
-          <line x1="0" y1="280" x2="800" y2="280" stroke="#2a2829" stroke-width="3" stroke-linecap="round"/>
-          <line x1="10" y1="290" x2="790" y2="290" stroke="#5a5658" stroke-width="1.5" stroke-dasharray="8 6"/>
-          
-          <!-- Cerco de madera dibujado a mano alzada -->
-          <g stroke="#2a2829" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M 60 280 L 65 190 L 78 175 L 90 190 L 95 280 Z"/>
-            <path d="M 110 280 L 115 185 L 128 170 L 140 185 L 145 280 Z"/>
-            <path d="M 160 280 L 165 195 L 178 180 L 190 195 L 195 280 Z"/>
-            <line x1="50" y1="210" x2="210" y2="210" stroke-width="3"/>
-            <line x1="50" y1="250" x2="210" y2="250" stroke-width="3"/>
+    // --- LAS 3 PIEZAS AUDIOVISUALES (VIDEOS) ---
+    const videoScenes = {
+      // VIDEO 1 (NODO 1): DENTRO DE LA CASA (HOMBRE CON PIES EN EL SUELO, NO FLOTANDO)
+      video1: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="wallInside" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#faedcd"/><stop offset="100%" stop-color="#e9edc9"/></linearGradient>
+            <linearGradient id="floorWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#cb997e"/><stop offset="100%" stop-color="#9a6245"/></linearGradient>
+          </defs>
+          <!-- Pared del living -->
+          <rect width="800" height="290" fill="url(#wallInside)"/>
+          <line x1="0" y1="290" x2="800" y2="290" stroke="#23201e" stroke-width="3"/>
+          <rect y="278" width="800" height="12" fill="#6b4c35" stroke="#23201e" stroke-width="1.5"/>
+          <!-- Piso entablonado -->
+          <rect y="290" width="800" height="160" fill="url(#floorWood)"/>
+          <line x1="0" y1="335" x2="800" y2="335" stroke="#6b4c35" stroke-width="1.2"/>
+          <line x1="0" y1="380" x2="800" y2="380" stroke="#6b4c35" stroke-width="1.2"/>
+          <line x1="0" y1="420" x2="800" y2="420" stroke="#6b4c35" stroke-width="1.2"/>
+
+          <!-- Cuadro de Toby cachorro -->
+          <g transform="translate(110, 80)">
+            <rect width="90" height="70" rx="3" fill="#dda15e" stroke="#23201e" stroke-width="3"/>
+            <rect x="8" y="8" width="74" height="54" fill="#fffdfa"/>
+            <ellipse cx="45" cy="40" rx="16" ry="11" fill="#bc6c25"/>
+            <circle cx="56" cy="30" r="8" fill="#bc6c25"/>
+            <rect x="49" y="32" width="4" height="8" fill="#c0392b"/>
           </g>
 
-          <!-- Portón de madera abierto con bisagra torcida -->
-          <g stroke="#2a2829" stroke-width="3" fill="none" stroke-linecap="round">
-            <path d="M 560 140 L 680 165 L 675 310 L 560 280 Z"/>
-            <line x1="560" y1="140" x2="675" y2="310"/>
-            <!-- Sombreado a lápiz (cross-hatching) en el hueco -->
-            <path d="M 570 180 L 660 200 M 575 220 L 665 240 M 580 260 L 660 275" stroke="#787376" stroke-width="1.5"/>
+          <!-- Puerta trasera abierta al patio -->
+          <g transform="translate(560, 60)">
+            <rect width="180" height="230" fill="#a7c957" stroke="#23201e" stroke-width="3.5"/>
+            <rect x="8" y="8" width="164" height="214" fill="#a7c957"/>
+            <circle cx="120" cy="80" r="35" fill="#f4a261" opacity="0.6"/>
+            <polygon points="172,0 210,30 210,240 172,230" fill="#fefae0" stroke="#23201e" stroke-width="3"/>
+            <circle cx="185" cy="130" r="4" fill="#d4af37"/>
+            <path class="curtain-sway" d="M 0 0 Q 30 110 10 230 L 40 230 Q 55 110 30 0 Z" fill="rgba(255,255,255,0.7)" stroke="#23201e" stroke-width="1.2"/>
           </g>
 
-          <!-- Plato de comida vacío dibujado -->
-          <ellipse cx="370" cy="350" rx="55" ry="18" stroke="#2a2829" stroke-width="3" fill="none"/>
-          <ellipse cx="370" cy="347" rx="45" ry="12" stroke="#5a5658" stroke-width="1.5" fill="none"/>
-          <text x="345" y="353" font-family="'Patrick Hand', cursive" font-size="20" fill="#2a2829">"TOBY"</text>
+          <!-- Camita vacía de Toby -->
+          <g transform="translate(180, 310)">
+            <ellipse cx="60" cy="30" rx="65" ry="24" fill="#bc6c25" stroke="#23201e" stroke-width="2.5"/>
+            <ellipse cx="60" cy="27" rx="52" ry="17" fill="#dda15e"/>
+            <path d="M 45 27 L 75 27" stroke="#f8edeb" stroke-width="5" stroke-linecap="round"/>
+          </g>
 
-          <!-- Pequeñas briznas de hierba a mano alzada -->
-          <path d="M 240 330 L 243 315 M 245 330 L 252 318 M 470 340 L 473 325" stroke="#2a2829" stroke-width="2"/>
+          <!-- Silla con mochila -->
+          <g transform="translate(50, 200)">
+            <rect x="15" y="40" width="40" height="50" rx="3" fill="#6c584c" stroke="#23201e" stroke-width="2.5"/>
+            <line x1="20" y1="90" x2="16" y2="140" stroke="#23201e" stroke-width="3"/><line x1="50" y1="90" x2="54" y2="140" stroke="#23201e" stroke-width="3"/>
+            <path d="M 22 35 L 48 35 L 45 70 L 25 70 Z" fill="#2b4c7e" stroke="#23201e" stroke-width="2"/>
+          </g>
+
+          <!-- PROTAGONISTA BAJADO: PIES DIRECTO EN EL PISO (Y=395) -->
+                    <!-- PROTAGONISTA CENTRADO EN EL LIVING Y PIES EN EL PISO -->
+          <g class="hero-house-anim">
+            <ellipse cx="25" cy="180" rx="34" ry="9" fill="rgba(0,0,0,0.25)"/>
+            <!-- Zapatos apoyados en el suelo (y=385 total) -->
+            <ellipse cx="12" cy="178" rx="14" ry="6" fill="#c0392b" stroke="#23201e" stroke-width="2"/>
+            <ellipse cx="38" cy="178" rx="14" ry="6" fill="#c0392b" stroke="#23201e" stroke-width="2"/>
+            <!-- Pantalones -->
+            <path d="M 6 105 L 44 105 L 46 174 L 30 174 L 25 130 L 20 174 L 4 174 Z" fill="#2b4c7e" stroke="#23201e" stroke-width="2.5"/>
+            <!-- Chaqueta verde -->
+            <path d="M 0 45 Q 25 40 50 45 L 45 105 L 5 105 Z" fill="#2d6a4f" stroke="#23201e" stroke-width="2.5"/>
+            <!-- Brazos -->
+            <path d="M 2 50 L -16 75 L -6 95" stroke="#23201e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M 48 50 L 68 75 L 58 95" stroke="#23201e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <!-- Cabeza -->
+            <circle cx="25" cy="22" r="22" fill="#fcd5ce" stroke="#23201e" stroke-width="2.5"/>
+            <path d="M 6 22 C 2 -3, 48 -3, 44 22 Z" fill="#6f4e37" stroke="#23201e" stroke-width="2"/>
+            <ellipse cx="18" cy="21" rx="3" ry="4" fill="#23201e"/><ellipse cx="32" cy="21" rx="3" ry="4" fill="#23201e"/>
+            <circle cx="19" cy="19" r="1" fill="#fff"/><circle cx="33" cy="19" r="1" fill="#fff"/>
+            <ellipse cx="25" cy="32" rx="5" ry="4" fill="#c0392b" stroke="#23201e" stroke-width="1.5"/>
+            <!-- Bocadillo de texto amplio y proporcional -->
+            <path d="M 35 2 L 45 -16 L 175 -16 Q 185 -16 185 -28 L 185 -60 Q 185 -72 175 -72 L -15 -72 Q -25 -72 -25 -60 L -25 -28 Q -25 -16 -15 -16 L 25 -16 Z" fill="#fff" stroke="#23201e" stroke-width="2.5"/>
+            <text x="80" y="-38" text-anchor="middle" font-family="'Caveat'" font-size="23" fill="#c0392b" font-weight="bold">¡¿Toby?! ¿Dónde estás?</text>
+          </g>
         </svg>`,
 
-      calle: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Casas del vecindario en boceto arquitectónico rápido -->
-          <g stroke="#2a2829" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <!-- Casa 1 -->
-            <polygon points="80,190 160,110 240,190"/>
-            <rect x="95" y="190" width="130" height="90"/>
-            <rect x="145" y="220" width="30" height="60"/>
-            <rect x="110" y="210" width="25" height="25"/>
-            <!-- Casa 2 -->
-            <polygon points="260,190 340,125 420,190"/>
-            <rect x="275" y="190" width="130" height="90"/>
+      // VIDEO 2 (NODO 8): TEXTO PERFECTAMENTE CENTRADO
+      video2: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="skyP" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a0c4ff"/><stop offset="100%" stop-color="#fdf0d5"/></linearGradient>
+            <linearGradient id="grassP" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#95d5b2"/><stop offset="100%" stop-color="#40916c"/></linearGradient>
+          </defs>
+          <rect width="800" height="220" fill="url(#skyP)"/>
+          <ellipse cx="140" cy="220" rx="160" ry="70" fill="#74c69d" opacity="0.5"/><ellipse cx="700" cy="220" rx="150" ry="75" fill="#74c69d" opacity="0.5"/>
+          <path d="M 0 220 Q 200 170 450 220 Q 650 200 800 230 L 800 450 L 0 450 Z" fill="url(#grassP)"/><line x1="0" y1="220" x2="800" y2="230" stroke="#23201e" stroke-width="2.5"/>
+          <g transform="translate(100, 110)">
+            <line x1="10" y1="30" x2="10" y2="240" stroke="#23201e" stroke-width="4"/><polygon points="0,30 20,30 16,5 4,5" fill="#f4a261" stroke="#23201e" stroke-width="2"/>
+            <circle cx="10" cy="18" r="8" fill="#ffe3a0" opacity="0.8"/>
           </g>
-
-          <!-- Cordón de vereda y perspectiva de la calle -->
-          <line x1="0" y1="280" x2="800" y2="280" stroke="#2a2829" stroke-width="3"/>
-          <line x1="0" y1="320" x2="800" y2="320" stroke="#2a2829" stroke-width="2.5"/>
-          <line x1="120" y1="370" x2="220" y2="370" stroke="#5a5658" stroke-width="4" stroke-dasharray="30 20"/>
-          <line x1="360" y1="370" x2="480" y2="370" stroke="#5a5658" stroke-width="4" stroke-dasharray="30 20"/>
-
-          <!-- Poste de luz en grafito con cables curvados -->
-          <line x1="620" y1="70" x2="625" y2="280" stroke="#2a2829" stroke-width="4"/>
-          <line x1="590" y1="85" x2="650" y2="85" stroke="#2a2829" stroke-width="3"/>
-          <path d="M 0 110 Q 300 170 600 85" stroke="#787376" stroke-width="1.5" fill="none"/>
-        </svg>`,
-
-      huellas: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <text x="240" y="60" font-family="'Caveat', cursive" font-size="34" fill="#2a2829">Boceto: Rastro de huellas en la tierra...</text>
-          
-          <!-- Huellas de perro dibujadas con grafito oscuro -->
-          <g fill="#2a2829" stroke="#2a2829" stroke-width="1">
-            <!-- Par de huellas 1 -->
-            <g transform="translate(160, 320) rotate(-10)">
-              <ellipse cx="20" cy="22" rx="14" ry="11"/>
-              <circle cx="8" cy="5" r="4.5"/><circle cx="19" cy="2" r="4.5"/><circle cx="31" cy="5" r="4.5"/><circle cx="39" cy="14" r="4"/>
-            </g>
-            <!-- Par de huellas 2 -->
-            <g transform="translate(290, 240) rotate(5)">
-              <ellipse cx="20" cy="22" rx="14" ry="11"/>
-              <circle cx="8" cy="5" r="4.5"/><circle cx="19" cy="2" r="4.5"/><circle cx="31" cy="5" r="4.5"/><circle cx="39" cy="14" r="4"/>
-            </g>
-            <!-- Par de huellas 3 -->
-            <g transform="translate(430, 180) rotate(-15)">
-              <ellipse cx="20" cy="22" rx="14" ry="11"/>
-              <circle cx="8" cy="5" r="4.5"/><circle cx="19" cy="2" r="4.5"/><circle cx="31" cy="5" r="4.5"/><circle cx="39" cy="14" r="4"/>
-            </g>
-            <!-- Par de huellas 4 rumbo a la plaza -->
-            <g transform="translate(560, 110) rotate(8)">
-              <ellipse cx="20" cy="22" rx="13" ry="10"/>
-              <circle cx="8" cy="5" r="4"/><circle cx="19" cy="2" r="4"/><circle cx="31" cy="5" r="4"/><circle cx="39" cy="14" r="3.5"/>
-            </g>
+          <path d="M 640 360 Q 660 210 625 150 Q 595 210 580 360" fill="#7f4f24" stroke="#23201e" stroke-width="3"/>
+          <circle cx="615" cy="130" r="105" fill="#2d6a4f" stroke="#23201e" stroke-width="3"/><circle cx="680" cy="160" r="75" fill="#40916c" stroke="#23201e" stroke-width="2.5"/>
+          <path d="M 490 360 Q 540 280 600 360 Q 660 290 730 360 Z" fill="#1b4332" stroke="#23201e" stroke-width="3"/>
+          <g class="toby-hide-peek">
+            <ellipse cx="640" cy="285" rx="34" ry="28" fill="#ddb892" stroke="#23201e" stroke-width="3"/>
+            <ellipse cx="610" cy="285" rx="10" ry="22" fill="#b08968" stroke="#23201e" stroke-width="2.5"/><ellipse cx="670" cy="285" rx="10" ry="22" fill="#b08968" stroke="#23201e" stroke-width="2.5"/>
+            <ellipse cx="640" cy="298" rx="16" ry="12" fill="#fcd5ce" stroke="#23201e" stroke-width="2"/><ellipse cx="640" cy="293" rx="5.5" ry="4" fill="#23201e"/>
+            <ellipse cx="628" cy="280" rx="4.5" ry="5.5" fill="#23201e"/><ellipse cx="652" cy="280" rx="4.5" ry="5.5" fill="#23201e"/>
+            <rect x="625" y="312" width="30" height="9" rx="3" fill="#c0392b" stroke="#23201e" stroke-width="1.8"/>
+            <path d="M 660 250 L 685 220 L 755 220 Q 765 220 765 208 L 765 175 Q 765 165 755 165 L 680 165 Q 670 165 670 175 L 670 208 Q 670 220 680 220 Z" fill="#fff" stroke="#23201e" stroke-width="2.5"/>
+            <text x="715" y="198" text-anchor="middle" font-family="'Caveat'" font-size="30" fill="#c0392b" font-weight="bold">¡GUAU!</text>
           </g>
-
-          <!-- Trazos de sombreado y texturas de tierra suelta -->
-          <path d="M 120 370 L 190 365 M 340 290 L 400 285 M 500 220 L 580 215" stroke="#787376" stroke-width="2" stroke-dasharray="5 5"/>
-        </svg>`,
-
-      plaza: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Árboles en bosquejo circular a mano alzada -->
-          <g stroke="#2a2829" stroke-width="2.5" fill="none" stroke-linecap="round">
-            <!-- Árbol izquierdo -->
-            <path d="M 140 310 Q 150 220 130 170 Q 120 220 110 310"/>
-            <path d="M 70 170 C 60 110, 130 90, 160 110 C 200 90, 230 140, 200 180 C 210 220, 130 240, 90 200 Z"/>
-            <!-- Sombreado a lápiz en copa -->
-            <path d="M 90 150 Q 140 160 180 150 M 100 170 Q 140 180 170 170" stroke="#787376" stroke-width="1.5"/>
-
-            <!-- Árbol derecho -->
-            <path d="M 640 310 Q 645 220 635 160"/>
-            <path d="M 580 150 C 570 100, 640 80, 670 100 C 710 90, 730 150, 690 180 C 700 210, 610 220, 590 180 Z"/>
-          </g>
-
-          <!-- Banco de plaza en grafito -->
-          <g stroke="#2a2829" stroke-width="2.5" fill="none">
-            <line x1="330" y1="280" x2="470" y2="280" stroke-width="4"/>
-            <line x1="330" y1="292" x2="470" y2="292" stroke-width="4"/>
-            <line x1="345" y1="295" x2="340" y2="330" stroke-width="3"/>
-            <line x1="455" y1="295" x2="450" y2="330" stroke-width="3"/>
-          </g>
-
-          <!-- Sendero que serpentea -->
-          <path d="M 0 350 Q 380 320 800 350" stroke="#2a2829" stroke-width="2" stroke-dasharray="10 6" fill="none"/>
-        </svg>`,
-
-      preguntar: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Vecina dibujada a estilo tira cómica de lápiz -->
-          <g stroke="#2a2829" stroke-width="2.5" fill="none" stroke-linecap="round">
-            <!-- Cabeza y peinado -->
-            <circle cx="520" cy="170" r="30"/>
-            <path d="M 490 160 Q 520 120 550 160 Q 560 190 535 185"/>
-            <!-- Ojos y sonrisa en boceto -->
-            <circle cx="510" cy="165" r="2" fill="#2a2829"/>
-            <circle cx="525" cy="165" r="2" fill="#2a2829"/>
-            <path d="M 512 180 Q 520 188 528 180"/>
-            <!-- Cuerpo y brazos gesticulando -->
-            <path d="M 520 200 L 520 310"/>
-            <path d="M 520 230 L 470 200 L 440 215"/>
-            <path d="M 520 230 L 565 240 L 585 270"/>
-          </g>
-
-          <!-- Globo de diálogo rotulado a mano -->
-          <g stroke="#2a2829" stroke-width="2.5" fill="#faf4e8">
-            <path d="M 180 80 L 420 80 Q 440 80 440 100 L 440 180 Q 440 200 420 200 L 320 200 L 280 240 L 295 200 L 180 200 Q 160 200 160 180 L 160 100 Q 160 80 180 80 Z"/>
-          </g>
-          <text x="185" y="125" font-family="'Patrick Hand', cursive" font-size="24" fill="#2a2829">"¡Hola! Sí, vi pasar corriendo a un</text>
-          <text x="185" y="160" font-family="'Patrick Hand', cursive" font-size="24" fill="#2a2829">perrito con collar rojo hacia el sur!"</text>
-        </svg>`,
-
-      seguir: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Sendero en perspectiva de dibujo en perspectiva con fuga -->
-          <line x1="400" y1="180" x2="150" y2="450" stroke="#2a2829" stroke-width="3" stroke-linecap="round"/>
-          <line x1="420" y1="180" x2="680" y2="450" stroke="#2a2829" stroke-width="3" stroke-linecap="round"/>
-          <!-- Rayado de sombras en el camino -->
-          <path d="M 360 230 L 440 230 M 320 280 L 490 280 M 260 350 L 560 350" stroke="#787376" stroke-width="2" stroke-dasharray="10 8"/>
-          <!-- Césped y matorrales a los lados -->
-          <path d="M 110 390 L 120 360 M 130 390 L 145 365 M 690 390 L 680 355 M 710 390 L 725 360" stroke="#2a2829" stroke-width="2.5"/>
-          <text x="250" y="90" font-family="'Caveat', cursive" font-size="34" fill="#2a2829">Avanzando en silencio por el sendero...</text>
-        </svg>`,
-
-      correr: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Líneas de velocidad y dinamismo a lápiz fuerte -->
-          <g stroke="#2a2829" stroke-linecap="round">
-            <line x1="40" y1="100" x2="380" y2="100" stroke-width="4" stroke-dasharray="60 30"/>
-            <line x1="120" y1="180" x2="620" y2="180" stroke-width="5" stroke-dasharray="100 40"/>
-            <line x1="60" y1="260" x2="480" y2="260" stroke-width="3.5" stroke-dasharray="50 25"/>
-            <line x1="150" y1="340" x2="700" y2="340" stroke-width="4" stroke-dasharray="80 35"/>
-          </g>
-          <!-- Nube de polvo de carrera en bosquejo -->
-          <path d="M 180 380 Q 150 350 180 330 Q 210 310 240 340 Q 280 330 290 360 Q 300 390 250 390 Z" stroke="#787376" stroke-width="2" fill="none"/>
-          <text x="260" y="80" font-family="'Caveat', cursive" font-size="44" font-weight="bold" fill="#d94e34">¡CORRIENDO TRAS LOS LADRIDOS!</text>
-        </svg>`,
-
-      esperar: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Silueta escuchando con ondas de sonido en grafito -->
-          <circle cx="560" cy="200" r="40" stroke="#2a2829" stroke-width="2" fill="none" stroke-dasharray="6 6"/>
-          <circle cx="560" cy="200" r="90" stroke="#2a2829" stroke-width="2.5" fill="none" stroke-dasharray="8 8"/>
-          <circle cx="560" cy="200" r="140" stroke="#787376" stroke-width="2" fill="none" stroke-dasharray="10 10"/>
-          
-          <text x="210" y="90" font-family="'Caveat', cursive" font-size="34" fill="#2a2829">Detenerse... afinar el oído y esperar...</text>
-          <text x="540" y="205" font-family="'Caveat', cursive" font-size="32" font-weight="bold" fill="#d94e34">¡Guau!</text>
-        </svg>`,
-
-      final_seguir: `
-        <svg class="sketch-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <!-- Protagonista y Toby caminando juntos dibujados a mano -->
-          <g stroke="#2a2829" stroke-width="3" fill="none" stroke-linecap="round">
-            <!-- Humano -->
-            <circle cx="320" cy="180" r="22"/>
-            <path d="M 320 202 L 315 285"/>
-            <line x1="315" y1="285" x2="295" y2="345"/>
-            <line x1="315" y1="285" x2="335" y2="345"/>
-            <!-- Brazo sosteniendo la correa -->
-            <path d="M 320 225 L 360 260"/>
-            
-            <!-- Correa de lápiz punteada -->
-            <path d="M 360 260 Q 400 295 440 270" stroke="#d94e34" stroke-width="2.5" stroke-dasharray="6 4"/>
-
-            <!-- Toby dibujado a lápiz -->
-            <g class="anim-bob-pencil">
-              <!-- Cuerpo y cabeza de Toby -->
-              <ellipse cx="465" cy="285" rx="35" ry="20"/>
-              <circle cx="505" cy="265" r="16"/>
-              <ellipse cx="512" cy="268" rx="4" ry="7" fill="#2a2829"/> <!-- Oreja caída -->
-              <!-- Patas -->
-              <line x1="445" y1="305" x2="442" y2="340"/>
-              <line x1="455" y1="305" x2="452" y2="340"/>
-              <line x1="480" y1="305" x2="482" y2="340"/>
-              <line x1="490" y1="305" x2="492" y2="340"/>
-              <!-- Cola animada batiendo alegremente -->
-              <path class="anim-wag-pencil" d="M 432 280 Q 410 260 415 245" stroke-width="3.5"/>
+                    <!-- PELOTA ROJA CON MARCAS DE MORDISCOS REBOTANDO POR TODO EL PARQUE (SMIL + CSS INFALIBLE) -->
+          <g id="animatedBouncingBall">
+            <animateTransform attributeName="transform" type="translate"
+              dur="3.8s" repeatCount="indefinite"
+              values="80,140; 220,340; 270,250; 420,345; 480,270; 600,345; 640,310; 680,345; 80,140"
+              keyTimes="0; 0.22; 0.32; 0.52; 0.62; 0.78; 0.86; 0.94; 1"
+              keySplines="0.4 0 0.6 1; 0.2 0.8 0.4 1; 0.4 0 0.6 1; 0.2 0.8 0.4 1; 0.4 0 0.6 1; 0.2 0.8 0.4 1; 0.4 0 0.6 1; 0.2 0.8 0.4 1"
+              calcMode="spline" />
+            <g>
+              <animateTransform attributeName="transform" type="rotate"
+                dur="3.8s" repeatCount="indefinite"
+                values="0; 240; 360; 600; 720; 900; 1000; 1080; 0" />
+              <!-- Pelota roja con sombra y relieve -->
+              <circle cx="0" cy="0" r="28" fill="#e63946" stroke="#23201e" stroke-width="3"/>
+              <path d="M -22 -10 Q 0 0 22 -10" stroke="#fff" stroke-width="3.5" fill="none"/>
+              <path d="M -22 10 Q 0 0 22 10" stroke="#fff" stroke-width="3.5" fill="none"/>
+              <polygon points="-8,-6 -5,-2 -2,-6" fill="#fff"/>
+              <circle cx="-6" cy="-8" r="4" fill="#fff" opacity="0.6"/>
             </g>
           </g>
+          <text x="400" y="60" text-anchor="middle" font-family="'Caveat'" font-size="36" fill="#23201e">¡La pelota de Toby cruza el parque rebotando!</text>
+        </svg>`,
 
-          <line x1="200" y1="345" x2="600" y2="345" stroke="#2a2829" stroke-width="3"/>
-          <text x="250" y="80" font-family="'Caveat', cursive" font-size="36" fill="#2a2829">¡De vuelta a casa, juntos otra vez!</text>
+      // VIDEO 3 (NODO 11): EXCELENTE Y CONSERVADO
+      video3: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="sunsetV" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f77f00"/><stop offset="100%" stop-color="#eae2b7"/></linearGradient>
+            <linearGradient id="groundV" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#84a98c"/><stop offset="100%" stop-color="#354f52"/></linearGradient>
+          </defs>
+          <rect width="800" height="240" fill="url(#sunsetV)"/>
+          <circle cx="400" cy="180" r="85" fill="#f4a261" opacity="0.4"/>
+          <rect y="240" width="800" height="210" fill="url(#groundV)"/><line x1="0" y1="240" x2="800" y2="240" stroke="#23201e" stroke-width="3.5"/>
+          <g transform="translate(260, 180)">
+            <ellipse cx="40" cy="170" rx="35" ry="9" fill="rgba(0,0,0,0.2)"/>
+            <path d="M 20 120 L -5 165 L 35 165 Z" fill="#2b4c7e" stroke="#23201e" stroke-width="3"/>
+            <path d="M 45 120 L 70 165 L 100 165 Z" fill="#2b4c7e" stroke="#23201e" stroke-width="3"/>
+            <path d="M 5 50 L 45 50 L 60 120 L 10 120 Z" fill="#2d6a4f" stroke="#23201e" stroke-width="3"/>
+            <path d="M 40 65 L 90 90 L 125 75" stroke="#23201e" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <path d="M 10 65 L 65 105 L 105 100" stroke="#23201e" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <circle cx="25" cy="25" r="22" fill="#fcd5ce" stroke="#23201e" stroke-width="2.5"/>
+            <path d="M 5 25 C 0 0, 48 0, 45 25 Z" fill="#6f4e37" stroke="#23201e" stroke-width="2"/>
+            <path d="M 18 26 Q 22 21 26 26" stroke="#23201e" stroke-width="2.5" fill="none"/><path d="M 30 26 Q 34 21 38 26" stroke="#23201e" stroke-width="2.5" fill="none"/>
+            <path d="M 22 36 Q 28 44 34 36" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+          </g>
+          <g class="toby-leap-smooth">
+            <ellipse cx="480" cy="345" rx="48" ry="12" fill="rgba(0,0,0,0.2)"/>
+            <ellipse cx="470" cy="245" rx="50" ry="32" fill="#dda15e" stroke="#23201e" stroke-width="3.5"/>
+            <g class="toby-tail-fluid">
+              <path d="M 425 240 C 390 215, 380 175, 400 140 C 412 165, 420 195, 435 230 Z" fill="#bc6c25" stroke="#23201e" stroke-width="3"/>
+            </g>
+            <line x1="445" y1="270" x2="425" y2="315" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="465" y1="270" x2="450" y2="320" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="495" y1="270" x2="515" y2="305" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="512" y1="265" x2="532" y2="295" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+            <rect x="495" y="210" width="12" height="26" rx="3" fill="#c0392b" stroke="#23201e" stroke-width="2.2"/><circle cx="501" cy="235" r="4.5" fill="#f4c430" stroke="#23201e" stroke-width="1.8"/>
+            <circle cx="522" cy="200" r="26" fill="#dda15e" stroke="#23201e" stroke-width="3.5"/>
+            <ellipse cx="505" cy="195" rx="10" ry="22" fill="#bc6c25" stroke="#23201e" stroke-width="3"/>
+            <ellipse cx="542" cy="210" rx="16" ry="12" fill="#fcd5ce" stroke="#23201e" stroke-width="2.5"/><circle cx="550" cy="205" r="5" fill="#23201e"/>
+            <path d="M 538 218 C 538 235, 552 235, 552 218 Z" fill="#e63946" stroke="#23201e" stroke-width="2"/>
+            <path d="M 522 192 Q 528 184 534 192" stroke="#23201e" stroke-width="3.5" fill="none"/>
+          </g>
+          <g class="hearts-floating" transform="translate(370, 210)"><text font-family="'Caveat'" font-size="44" fill="#c0392b">❤</text></g>
+          <text x="400" y="70" text-anchor="middle" font-family="'Caveat'" font-size="42" fill="#23201e">¡Toby saltó directo a mis brazos!</text>
         </svg>`
     };
 
-    // Estructura de los 12 Nodos del diagrama de flujo
+    // --- ESCENARIOS ILUSTRADOS CON MEJORAS SOLICITADAS ---
+    const illustrationScenes = {
+      // NODO 2: EL PATIO (MUCHO MÁS DETALLADO: Cucha, plantas trepadoras, bebedero, huellas y ladrillos)
+      patio: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="skyPatioDet" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd194"/><stop offset="100%" stop-color="#d9ed92"/></linearGradient>
+            <linearGradient id="mudPatio" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b08968"/><stop offset="100%" stop-color="#58311e"/></linearGradient>
+          </defs>
+          <rect width="800" height="220" fill="url(#skyPatioDet)"/>
+          <circle cx="680" cy="70" r="40" fill="#f4a261" opacity="0.6"/>
+          <!-- Muro medianero con hiedra trepadora -->
+          <rect x="0" y="60" width="220" height="170" fill="#bc6c47" stroke="#23201e" stroke-width="3"/>
+          <g stroke="#23201e" stroke-width="1.5" opacity="0.5">
+            <line x1="0" y1="100" x2="220" y2="100"/><line x1="0" y1="140" x2="220" y2="140"/><line x1="0" y1="180" x2="220" y2="180"/>
+          </g>
+          <path d="M 20 230 Q 50 120 40 80 Q 80 140 100 230" fill="#2d6a4f" opacity="0.8"/>
+          <!-- Césped y cantero de tierra enriquecido -->
+          <rect y="230" width="800" height="220" fill="#606c38"/><line x1="0" y1="230" x2="800" y2="230" stroke="#23201e" stroke-width="3"/>
+          <!-- Cucha de Toby detallada con tejas -->
+          <g transform="translate(140, 140)">
+            <polygon points="50,10 0,55 100,55" fill="#9b2226" stroke="#23201e" stroke-width="2.5"/>
+            <rect x="10" y="55" width="80" height="65" fill="#dda15e" stroke="#23201e" stroke-width="2.5"/>
+            <ellipse cx="50" cy="120" rx="20" ry="30" fill="#281d18"/>
+            <rect x="30" y="62" width="40" height="14" rx="3" fill="#fefae0" stroke="#23201e" stroke-width="1.5"/>
+            <text x="50" y="73" text-anchor="middle" font-family="'Caveat'" font-size="12" fill="#23201e" font-weight="bold">TOBY</text>
+          </g>
+          <!-- Portón de madera hacia la calle abierto -->
+          <polygon points="630,90 760,115 750,320 630,280" fill="#a66a44" stroke="#23201e" stroke-width="3.5"/>
+          <!-- Cantero con ladrillos vistos y huellas profundas -->
+          <ellipse cx="440" cy="335" rx="140" ry="55" fill="url(#mudPatio)" stroke="#23201e" stroke-width="2.5"/>
+          <g fill="#2b1704">
+            <g transform="translate(340, 340)"><ellipse cx="14" cy="16" rx="12" ry="10"/><circle cx="4" cy="4" r="4"/><circle cx="14" cy="1" r="4"/><circle cx="24" cy="4" r="4"/></g>
+            <g transform="translate(420, 315)"><ellipse cx="14" cy="16" rx="12" ry="10"/><circle cx="4" cy="4" r="4"/><circle cx="14" cy="1" r="4"/><circle cx="24" cy="4" r="4"/></g>
+            <g transform="translate(500, 335)"><ellipse cx="14" cy="16" rx="12" ry="10"/><circle cx="4" cy="4" r="4"/><circle cx="14" cy="1" r="4"/><circle cx="24" cy="4" r="4"/></g>
+          </g>
+          <!-- Bebedero de agua volcado -->
+          <ellipse cx="280" cy="350" rx="35" ry="14" fill="#a8dadc" stroke="#23201e" stroke-width="2"/>
+          <text x="400" y="55" text-anchor="middle" font-family="'Caveat'" font-size="34" fill="#23201e">El patio: Las huellas de barro fresco van directo hacia el portón exterior</text>
+        </svg>`,
+
+      // NODO 3: LA CALLE (TEXTO BIEN CENTRADO)
+      calle: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs><linearGradient id="skyC" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#bde0fe"/><stop offset="100%" stop-color="#ffeedb"/></linearGradient></defs>
+          <rect width="800" height="230" fill="url(#skyC)"/>
+          <polygon points="70,190 150,90 230,190" fill="#d90429" stroke="#23201e" stroke-width="2.5"/><rect x="85" y="190" width="130" height="95" fill="#fefae0" stroke="#23201e" stroke-width="2.5"/><rect x="135" y="225" width="30" height="60" fill="#6c584c"/>
+          <polygon points="250,190 330,105 410,190" fill="#f4a261" stroke="#23201e" stroke-width="2.5"/><rect x="265" y="190" width="130" height="95" fill="#e9edc9" stroke="#23201e" stroke-width="2.5"/>
+          <rect y="285" width="800" height="35" fill="#adb5bd"/><line x1="0" y1="285" x2="800" y2="285" stroke="#23201e" stroke-width="3"/>
+          <rect y="320" width="800" height="130" fill="#2b2d42"/><line x1="0" y1="320" x2="800" y2="320" stroke="#23201e" stroke-width="3"/>
+          <line x1="120" y1="380" x2="240" y2="380" stroke="#f4c430" stroke-width="5" stroke-dasharray="35 25"/>
+          <line x1="380" y1="380" x2="500" y2="380" stroke="#f4c430" stroke-width="5" stroke-dasharray="35 25"/>
+          <line x1="620" y1="70" x2="620" y2="285" stroke="#23201e" stroke-width="4.5"/><polygon points="610,70 630,70 625,45 615,45" fill="#ffe3a0" stroke="#23201e" stroke-width="2"/>
+          <text x="400" y="55" text-anchor="middle" font-family="'Caveat'" font-size="34" fill="#23201e">La calle del barrio: La búsqueda avanza hacia la plaza</text>
+        </svg>`,
+
+      // NODO 4: SEGUIR HUELLAS (TEXTO CENTRADO Y HUELLAS MÁS DETALLADAS)
+      huellas: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs><linearGradient id="groundMudTex" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b08968"/><stop offset="100%" stop-color="#6f4e37"/></linearGradient></defs>
+          <rect width="800" height="450" fill="url(#groundMudTex)"/>
+          <text x="400" y="55" text-anchor="middle" font-family="'Caveat'" font-size="36" fill="#fff">Rastro claro: Siguiendo las huellas hacia el parque</text>
+          <g fill="#2b1704">
+            <g transform="translate(160, 330) scale(1.3)"><ellipse cx="20" cy="24" rx="14" ry="11"/><circle cx="8" cy="6" r="4.5"/><circle cx="19" cy="3" r="4.5"/><circle cx="31" cy="6" r="4.5"/><circle cx="39" cy="15" r="4"/></g>
+            <g transform="translate(300, 250) scale(1.1)"><ellipse cx="20" cy="24" rx="14" ry="11"/><circle cx="8" cy="6" r="4.5"/><circle cx="19" cy="3" r="4.5"/><circle cx="31" cy="6" r="4.5"/><circle cx="39" cy="15" r="4"/></g>
+            <g transform="translate(440, 185) scale(0.95)"><ellipse cx="20" cy="24" rx="14" ry="11"/><circle cx="8" cy="6" r="4.5"/><circle cx="19" cy="3" r="4.5"/><circle cx="31" cy="6" r="4.5"/><circle cx="39" cy="15" r="4"/></g>
+            <g transform="translate(560, 125) scale(0.75)"><ellipse cx="20" cy="24" rx="14" ry="11"/><circle cx="8" cy="6" r="4.5"/><circle cx="19" cy="3" r="4.5"/><circle cx="31" cy="6" r="4.5"/><circle cx="39" cy="15" r="4"/></g>
+          </g>
+          <!-- Piedritas y pasto entre la tierra -->
+          <circle cx="230" cy="280" r="4" fill="#8d6e63"/><circle cx="380" cy="360" r="5" fill="#5d4037"/>
+          <path d="M 240 220 Q 255 200 270 215 Q 255 230 240 220" fill="#d97706" stroke="#23201e" stroke-width="1.5"/>
+        </svg>`,
+
+      // NODO 5: LA PLAZA (MUCHO MÁS DETALLADA: Fuente central con agua, senderos, canteros y farolas)
+      plaza: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="skyPlazaRich" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#90e0ef"/><stop offset="100%" stop-color="#caf0f8"/></linearGradient>
+            <linearGradient id="fountainWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00b4d8"/><stop offset="100%" stop-color="#0077b6"/></linearGradient>
+          </defs>
+          <rect width="800" height="230" fill="url(#skyPlazaRich)"/>
+          <rect y="230" width="800" height="220" fill="#40916c"/><line x1="0" y1="230" x2="800" y2="230" stroke="#23201e" stroke-width="3"/>
+          <!-- Arboleda tupida con sombras -->
+          <circle cx="130" cy="140" r="85" fill="#1b4332" stroke="#23201e" stroke-width="3"/>
+          <circle cx="170" cy="160" r="65" fill="#2d6a4f" stroke="#23201e" stroke-width="2.5"/>
+          <circle cx="690" cy="130" r="95" fill="#1b4332" stroke="#23201e" stroke-width="3"/>
+          <circle cx="650" cy="155" r="70" fill="#2d6a4f" stroke="#23201e" stroke-width="2.5"/>
+          <!-- Farola doble de parque -->
+          <line x1="280" y1="120" x2="280" y2="260" stroke="#23201e" stroke-width="4"/>
+          <circle cx="265" cy="115" r="8" fill="#ffe3a0" stroke="#23201e" stroke-width="1.5"/>
+          <circle cx="295" cy="115" r="8" fill="#ffe3a0" stroke="#23201e" stroke-width="1.5"/>
+          <!-- FUENTE CENTRAL DE AGUA DETALLADA CON CHORRO ANIMADO -->
+          <g transform="translate(400, 260)">
+            <ellipse cx="0" cy="40" rx="90" ry="24" fill="#adb5bd" stroke="#23201e" stroke-width="3"/>
+            <ellipse cx="0" cy="37" rx="78" ry="18" fill="url(#fountainWater)"/>
+            <!-- Pedestal -->
+            <rect x="-16" y="10" width="32" height="30" fill="#6c757d" stroke="#23201e" stroke-width="2"/>
+            <ellipse cx="0" cy="10" rx="35" ry="10" fill="#ced4da" stroke="#23201e" stroke-width="2.5"/>
+            <!-- Chorro de agua que salpica -->
+            <path class="water-spray" d="M 0 10 Q -15 -25 0 -45 Q 15 -25 0 10" fill="#caf0f8" stroke="#0077b6" stroke-width="2"/>
+          </g>
+          <!-- Bancos de plaza a los costados -->
+          <g transform="translate(620, 270)">
+            <rect x="0" y="20" width="100" height="12" rx="3" fill="#99582a" stroke="#23201e" stroke-width="2"/>
+            <line x1="15" y1="32" x2="10" y2="60" stroke="#23201e" stroke-width="3"/><line x1="85" y1="32" x2="90" y2="60" stroke="#23201e" stroke-width="3"/>
+          </g>
+          <text x="400" y="55" text-anchor="middle" font-family="'Caveat'" font-size="38" fill="#23201e">La Plaza Principal</text>
+        </svg>`,
+
+      // NODO 6: PREGUNTAR A LA VECINA (MUCHO MÁS DETALLADA: Jardín, delantal floreado, sombrero)
+      preguntar: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <rect width="800" height="450" fill="#f8edeb"/>
+          <!-- Cerca blanca del jardín de la vecina -->
+          <g stroke="#23201e" stroke-width="2" fill="#fff">
+            <polygon points="460,280 460,190 470,180 480,190 480,280"/>
+            <polygon points="495,280 495,190 505,180 515,190 515,280"/>
+            <line x1="450" y1="210" x2="525" y2="210" stroke-width="3"/>
+            <line x1="450" y1="250" x2="525" y2="250" stroke-width="3"/>
+          </g>
+          <!-- Vecina con sombrero de paja, delantal y regadera -->
+          <g transform="translate(540, 115)">
+            <!-- Sombrero de paja -->
+            <ellipse cx="30" cy="10" rx="35" ry="10" fill="#e9d8a6" stroke="#23201e" stroke-width="2"/>
+            <circle cx="30" cy="6" r="18" fill="#ddb892"/>
+            <!-- Cabeza -->
+            <circle cx="30" cy="28" r="22" fill="#fcd5ce" stroke="#23201e" stroke-width="2.2"/>
+            <path d="M 4 25 Q 30 -10 56 25" fill="#6f4e37"/>
+            <ellipse cx="20" cy="28" rx="3" ry="4" fill="#23201e"/><ellipse cx="40" cy="28" rx="3" ry="4" fill="#23201e"/>
+            <!-- Vestido y delantal -->
+            <path d="M 10 50 L 50 50 L 60 190 L 0 190 Z" fill="#9b5de5" stroke="#23201e" stroke-width="2.5"/>
+            <rect x="15" y="75" width="30" height="85" fill="#fff" stroke="#23201e" stroke-width="1.8"/>
+            <!-- Brazo que señala firmemente -->
+            <path d="M 12 65 L -35 80 L -75 70" stroke="#23201e" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <circle cx="-75" cy="70" r="5" fill="#fcd5ce"/>
+          </g>
+          <!-- Globo de diálogo rotulado centrado -->
+          <path d="M 100 50 L 440 50 Q 460 50 460 70 L 460 185 Q 460 205 440 205 L 320 205 L 280 245 L 295 205 L 100 205 Q 80 205 80 185 L 80 70 Q 80 50 100 50 Z" fill="#fff3b0" stroke="#23201e" stroke-width="3"/>
+          <text x="270" y="105" text-anchor="middle" font-family="'Patrick Hand'" font-size="26" fill="#23201e">"¡Hola! Sí, vi pasar corriendo a un</text>
+          <text x="270" y="138" text-anchor="middle" font-family="'Patrick Hand'" font-size="26" fill="#23201e">perrito con collar rojo hacia el sur!"</text>
+          <text x="270" y="172" text-anchor="middle" font-family="'Caveat'" font-size="25" fill="#c0392b" font-weight="bold">¡Corrió directo a la zona de juegos!</text>
+        </svg>`,
+
+      // NODO 7: SEGUIR BUSCANDO SOLO (TEXTO CENTRADO Y BOSQUE MUCHO MÁS DETALLADO)
+      seguir: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="forestSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#faedcd"/><stop offset="100%" stop-color="#ccd5ae"/></linearGradient>
+            <linearGradient id="pathDirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d4a373"/><stop offset="100%" stop-color="#bc6c25"/></linearGradient>
+          </defs>
+          <rect width="800" height="200" fill="url(#forestSky)"/>
+          <rect y="200" width="800" height="250" fill="#283618"/>
+          <!-- Rayos de luz que entran por la copa de árboles -->
+          <polygon points="120,0 200,0 350,300 250,300" fill="rgba(255,255,255,0.15)"/>
+          <polygon points="680,0 600,0 450,300 520,300" fill="rgba(255,255,255,0.15)"/>
+          <!-- Sendero con perspectiva y piedrecitas -->
+          <polygon points="400,200 420,200 680,450 140,450" fill="url(#pathDirt)" stroke="#23201e" stroke-width="3"/>
+          <!-- Árboles nudosos y raíces en primer plano -->
+          <path d="M 40 450 Q 90 280 60 160" stroke="#582f0e" stroke-width="12" fill="none"/>
+          <circle cx="60" cy="120" r="85" fill="#2d6a4f" stroke="#23201e" stroke-width="3"/>
+          <path d="M 760 450 Q 710 280 740 160" stroke="#582f0e" stroke-width="12" fill="none"/>
+          <circle cx="740" cy="120" r="85" fill="#2d6a4f" stroke="#23201e" stroke-width="3"/>
+          <text x="400" y="55" text-anchor="middle" font-family="'Caveat'" font-size="38" fill="#23201e">Avanzando en silencio por el sendero...</text>
+        </svg>`,
+
+      // NODO 9: CORRER TRAS LOS LADRIDOS (BAJADO AL PISO, NUNCA EN EL BORDE)
+      correr: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="skyRun" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#faedcd"/><stop offset="100%" stop-color="#fdf0d5"/></linearGradient>
+            <linearGradient id="pathRun" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9ada7"/><stop offset="100%" stop-color="#9a8c98"/></linearGradient>
+          </defs>
+          <rect width="800" height="260" fill="url(#skyRun)"/>
+          <!-- Suelo firme de pasto y camino de parque bien asentado -->
+          <rect y="260" width="800" height="190" fill="#588157"/>
+          <polygon points="0,310 800,300 800,450 0,450" fill="url(#pathRun)" stroke="#23201e" stroke-width="2.5"/>
+          <line x1="0" y1="260" x2="800" y2="260" stroke="#23201e" stroke-width="3"/>
+          <circle cx="120" cy="220" r="55" fill="#2d6a4f" opacity="0.6"/>
+          <circle cx="680" cy="220" r="65" fill="#2d6a4f" opacity="0.6"/>
+          <!-- Líneas de velocidad en la zona media -->
+          <g stroke="#e63946" stroke-linecap="round">
+            <line x1="40" y1="120" x2="420" y2="120" stroke-width="5" stroke-dasharray="60 30"/>
+            <line x1="140" y1="180" x2="740" y2="180" stroke-width="6" stroke-dasharray="100 40"/>
+            <line x1="80" y1="240" x2="520" y2="240" stroke-width="4.5" stroke-dasharray="50 25"/>
+          </g>
+          <!-- Protagonista corriendo bajado al suelo, con pies a y=390-400 -->
+          <g class="runner-body">
+            <ellipse cx="25" cy="180" rx="42" ry="9" fill="rgba(0,0,0,0.3)"/>
+            <circle cx="45" cy="30" r="22" fill="#fcd5ce" stroke="#23201e" stroke-width="2.5"/>
+            <path d="M 25 30 C 20 5, 65 5, 65 30 Z" fill="#6f4e37" stroke="#23201e" stroke-width="2"/>
+            <path d="M 20 55 L 60 45 L 45 115 L 10 120 Z" fill="#2d6a4f" stroke="#23201e" stroke-width="3"/>
+            <path d="M 40 50 L 75 75 L 100 55" stroke="#23201e" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <!-- Piernas pisando firmemente el suelo del sendero -->
+            <path d="M 35 115 L 65 150 L 88 180" stroke="#23201e" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="94" cy="182" rx="10" ry="5" fill="#c0392b"/>
+            <path d="M 15 115 L -10 142 L -25 180" stroke="#23201e" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-28" cy="182" rx="10" ry="5" fill="#c0392b"/>
+          </g>
+          <text x="400" y="65" text-anchor="middle" font-family="'Caveat'" font-size="46" font-weight="bold" fill="#c0392b">¡CORRIENDO A TODA VELOCIDAD!</text>
+        </svg>`,
+      // NODO 10: ESPERAR Y ESCUCHAR (MUCHO MÁS DETALLADO: Bosque en atardecer, ondas y protagonista concentrado)
+      esperar: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="twilightSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4a4e69"/><stop offset="100%" stop-color="#9a8c98"/></linearGradient>
+          </defs>
+          <rect width="800" height="230" fill="url(#twilightSky)"/>
+          <circle cx="400" cy="140" r="60" fill="#f2e9e4" opacity="0.4"/>
+          <rect y="230" width="800" height="220" fill="#22223b"/>
+          <!-- Árboles en contraluz crepuscular -->
+          <circle cx="140" cy="180" r="80" fill="#1b1d28"/>
+          <circle cx="680" cy="180" r="90" fill="#1b1d28"/>
+          <!-- Ondas de sonido con ladridos lejanos -->
+          <circle cx="600" cy="200" r="35" stroke="#f4a261" stroke-width="2.5" fill="none"/>
+          <circle cx="600" cy="200" r="75" stroke="#e76f51" stroke-width="2.5" fill="none" stroke-dasharray="6 6"/>
+          <circle cx="600" cy="200" r="120" stroke="#c0392b" stroke-width="2.5" fill="none" stroke-dasharray="8 8"/>
+          <!-- Protagonista de pie prestando atención con la mano en la oreja -->
+          <g transform="translate(270, 160)">
+            <ellipse cx="40" cy="185" rx="30" ry="8" fill="rgba(0,0,0,0.3)"/>
+            <line x1="30" y1="110" x2="28" y2="180" stroke="#23201e" stroke-width="4.5"/><line x1="50" y1="110" x2="52" y2="180" stroke="#23201e" stroke-width="4.5"/>
+            <rect x="20" y="50" width="40" height="60" rx="4" fill="#2d6a4f" stroke="#23201e" stroke-width="2.5"/>
+            <circle cx="40" cy="25" r="20" fill="#fcd5ce" stroke="#23201e" stroke-width="2.5"/>
+            <path d="M 22 65 L 5 45 L 20 25" stroke="#23201e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          </g>
+          <text x="400" y="55" text-anchor="middle" font-family="'Caveat'" font-size="36" fill="#fff">Silencio... aguzando el oído entre los árboles...</text>
+          <text x="590" y="205" text-anchor="middle" font-family="'Caveat'" font-size="38" font-weight="bold" fill="#c0392b">¡Guau!</text>
+        </svg>`,
+
+      // NODO 12: REGRESO SEGURO A CASA (COLA NATURAL, DUEÑO Y TOBY PISANDO EL SUELO)
+      final_seguir: `
+        <svg class="scene-svg line-boil" viewBox="0 0 800 450">
+          <defs>
+            <linearGradient id="sunsetN12" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f77f00"/><stop offset="100%" stop-color="#eae2b7"/></linearGradient>
+            <linearGradient id="groundN12" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#84a98c"/><stop offset="100%" stop-color="#354f52"/></linearGradient>
+          </defs>
+          <rect width="800" height="250" fill="url(#sunsetN12)"/>
+          <circle cx="400" cy="170" r="80" fill="#f4a261" opacity="0.4"/>
+          <!-- Suelo firme del parque a Y=250 -->
+          <rect y="250" width="800" height="200" fill="url(#groundN12)"/><line x1="0" y1="250" x2="800" y2="250" stroke="#23201e" stroke-width="3.5"/>
+
+          <!-- Dueño caminando en el suelo (Pies en Y=385) -->
+          <g transform="translate(260, 205)">
+            <ellipse cx="40" cy="180" rx="35" ry="8" fill="rgba(0,0,0,0.25)"/>
+            <circle cx="40" cy="25" r="20" fill="#fcd5ce" stroke="#23201e" stroke-width="2.5"/>
+            <path d="M 22 25 C 18 2, 60 2, 58 25 Z" fill="#6f4e37" stroke="#23201e" stroke-width="2"/>
+            <path d="M 22 48 L 58 48 L 52 115 L 26 115 Z" fill="#2d6a4f" stroke="#23201e" stroke-width="2.5"/>
+            <line x1="32" y1="115" x2="26" y2="175" stroke="#23201e" stroke-width="3.5"/>
+            <line x1="48" y1="115" x2="54" y2="175" stroke="#23201e" stroke-width="3.5"/>
+            <path d="M 52 65 L 85 85" stroke="#23201e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <!-- Correa roja hacia el collar de Toby -->
+            <path d="M 85 85 Q 130 115 160 95" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 3" fill="none"/>
+          </g>
+
+          <!-- Toby caminando al lado, firme sobre el pasto (Patas en Y=385) -->
+          <g transform="translate(420, 260)">
+            <ellipse cx="60" cy="125" rx="48" ry="10" fill="rgba(0,0,0,0.25)"/>
+            
+            <!-- COLA DE TOBY: perfectamente unida al anca (X=5, Y=45) y animada con pivote local -->
+            <g class="toby-tail-wag-clean">
+              <path d="M 15 45 C -15 30, -25 -5, -5 -25 C 5 -5, 12 25, 20 40 Z" fill="#bc6c25" stroke="#23201e" stroke-width="3"/>
+            </g>
+
+            <!-- Cuerpo peludo dorado -->
+            <ellipse cx="60" cy="50" rx="52" ry="30" fill="#dda15e" stroke="#23201e" stroke-width="3.5"/>
+
+            <!-- 4 patas apoyadas sobre el suelo -->
+            <line x1="35" y1="75" x2="30" y2="122" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="55" y1="75" x2="50" y2="122" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="85" y1="75" x2="90" y2="122" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="100" y1="75" x2="105" y2="122" stroke="#23201e" stroke-width="4.5" stroke-linecap="round"/>
+
+            <!-- Collar rojo y medalla -->
+            <rect x="85" y="15" width="12" height="26" rx="3" fill="#c0392b" stroke="#23201e" stroke-width="2.2"/>
+            <circle cx="91" cy="40" r="4.5" fill="#f4c430" stroke="#23201e" stroke-width="1.8"/>
+
+            <!-- Cabeza alegre -->
+            <circle cx="112" cy="5" r="26" fill="#dda15e" stroke="#23201e" stroke-width="3.5"/>
+            <ellipse cx="95" cy="0" rx="10" ry="22" fill="#bc6c25" stroke="#23201e" stroke-width="3"/>
+            <ellipse cx="132" cy="15" rx="16" ry="12" fill="#fcd5ce" stroke="#23201e" stroke-width="2.5"/>
+            <circle cx="140" cy="10" r="5" fill="#23201e"/>
+            <path d="M 128 23 C 128 40, 142 40, 142 23 Z" fill="#e63946" stroke="#23201e" stroke-width="2"/>
+            <path d="M 112 -3 Q 118 -11 124 -3" stroke="#23201e" stroke-width="3.5" fill="none"/>
+          </g>
+
+          <!-- Corazones flotantes a media altura -->
+          <g class="hearts-floating" transform="translate(420, 180)"><text font-family="'Caveat'" font-size="44" fill="#c0392b">❤</text></g>
+          <text x="400" y="65" text-anchor="middle" font-family="'Caveat'" font-size="42" fill="#23201e">¡Juntos otra vez de regreso a casa!</text>
+        </svg>`
+    };
+
+    // --- ESTRUCTURA OFICIAL DE 12 NODOS Y 3 VIDEOS ---
     const nodes = {
       1: {
         title: "Nodo 1: La desaparición",
         depth: "Nivel 1 de interacción",
-        desc: "Llegas a casa y notas que el portón del patio está entornado. El plato con agua está en su lugar, pero Toby no vino a recibirte. ¡Ha desaparecido!",
+        desc: "Entras a tu casa y notas un silencio extraño. La camita de Toby está vacía y la puerta trasera que da al patio está abierta de par en par. ¡Toby no está por ningún lado!",
         isVideo: true,
-        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        hotspot: { top: "58%", left: "46%", text: "Marcas frescas de tierra y pelos atrapados en el cerrojo del portón." },
+        videoKey: "video1",
+        videoTitle: "Pieza Audiovisual 1: Llegada a casa y puerta al patio abierta",
+        hotspot: { top: "45%", left: "68%", text: "La puerta trasera que conecta con el patio quedó sin traba y abierta." },
         choices: [
           { text: "Buscar en el patio", target: 2 },
           { text: "Salir a la calle", target: 3 }
@@ -680,9 +1051,9 @@
       2: {
         title: "Nodo 2: El patio",
         depth: "Nivel 2 de interacción",
-        desc: "Inspeccionas el rincón de las plantas y la cucha. En la tierra húmeda del cantero distingues unas pisadas caninas que apuntan a la salida.",
-        svgKey: "patio",
-        hotspot: { top: "60%", left: "48%", text: "Huellas de patas dirigiéndose claramente al exterior." },
+        desc: "Sales al patio y revisas la cucha y los canteros. En la tierra húmeda distingues claramente unas huellas de patas que van directo hacia el portón exterior.",
+        artKey: "patio",
+        hotspot: { top: "60%", left: "52%", text: "Huellas de patas que salen directamente del patio hacia afuera." },
         choices: [
           { text: "Seguir las huellas", target: 4 }
         ]
@@ -690,9 +1061,9 @@
       3: {
         title: "Nodo 3: La calle",
         depth: "Nivel 2 de interacción",
-        desc: "Sales a la vereda y oteas ambas direcciones. El viento suave levanta hojas secas sobre el asfalto. A lo lejos se divisan los árboles de la plaza.",
-        svgKey: "calle",
-        hotspot: { top: "62%", left: "68%", text: "Una vecina podando arbustos unos metros más adelante." },
+        desc: "Sales a la vereda y miras a ambos lados. La cuadra está en calma y a lo lejos se divisan los árboles de la plaza del barrio.",
+        artKey: "calle",
+        hotspot: { top: "62%", left: "68%", text: "Una vecina barriendo a lo lejos en la vereda." },
         choices: [
           { text: "Caminar hacia la plaza", target: 5 }
         ]
@@ -700,8 +1071,8 @@
       4: {
         title: "Nodo 4: Seguir las huellas",
         depth: "Nivel 3 de interacción",
-        desc: "Agachas la vista y vas tras las marcas de patas impresas en el barro blando. El rastro cruza la vereda y avanza sin vacilar hacia el espacio verde.",
-        svgKey: "huellas",
+        desc: "Bajas la mirada y sigues las marcas impresas en el barro. El sendero cruza el asfalto y entra de lleno al parque.",
+        artKey: "huellas",
         choices: [
           { text: "Entrar a la plaza", target: 5 }
         ]
@@ -709,19 +1080,19 @@
       5: {
         title: "Nodo 5: La plaza",
         depth: "Nivel 3 de interacción",
-        desc: "Llegas a la plaza principal. Es un lugar amplio con bancos y senderos entrecruzados donde juegan niños y pasean vecinos.",
-        svgKey: "plaza",
+        desc: "Llegas a la plaza central. Los senderos se bifurcan entre árboles y bancos donde algunos vecinos conversan.",
+        artKey: "plaza",
         choices: [
           { text: "Preguntar a una persona", target: 6 },
-          { text: "Seguir buscando en solitario", target: 7 }
+          { text: "Seguir buscando solo", target: 7 }
         ]
       },
       6: {
         title: "Nodo 6: Preguntar",
         depth: "Nivel 4 de interacción",
-        desc: "Te acercas a una señora que descansa en un banco y le describes a Toby. Ella señala con el dedo hacia el sector sur de la plaza.",
-        svgKey: "preguntar",
-        hotspot: { top: "32%", left: "58%", text: "Testimonio: 'Un perrito con collar rojo pasó corriendo hacia la zona de juegos'." },
+        desc: "Te acercas a una señora y le describes a Toby. Ella sonríe y señala hacia el sector sur con seguridad.",
+        artKey: "preguntar",
+        hotspot: { top: "35%", left: "58%", text: "Testimonio: 'Un perrito con collar rojo pasó corriendo hacia los juegos infantiles'." },
         choices: [
           { text: "Ir a ver esa pista", target: 8 }
         ]
@@ -729,38 +1100,39 @@
       7: {
         title: "Nodo 7: Seguir",
         depth: "Nivel 4 de interacción",
-        desc: "Optas por internarte por tu cuenta en el sendero arbolado, mirando con atención los matorrales y silbando su nombre.",
-        svgKey: "seguir",
+        desc: "Decides internarte por tu cuenta en el sendero arbolado, mirando los matorrales y silbando su nombre.",
+        artKey: "seguir",
         choices: [
-          { text: "Inspeccionar los alrededores", target: 8 }
+          { text: "Explorar la pista", target: 8 }
         ]
       },
       8: {
         title: "Nodo 8: Pista",
         depth: "Nivel 4 de interacción",
-        desc: "¡Ahí en el pasto brilla algo conocido! Es la pelota de goma roja favorita de Toby, abandonada junto a unas ramas.",
+        desc: "¡Entre el pasto alto encuentras la pelota de goma roja favorita de Toby botando mientras se escuchan ladridos!",
         isVideo: true,
-        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-        hotspot: { top: "52%", left: "50%", text: "La pelota roja de Toby con marcas de mordiscos recientes." },
+        videoKey: "video2",
+        videoTitle: "Pieza Audiovisual 2: La pelota rodante y los ladridos",
+        hotspot: { top: "54%", left: "48%", text: "La pelota roja favorita de Toby aún húmeda." },
         choices: [
-          { text: "Correr hacia los ruidos", target: 9 },
+          { text: "Correr hacia los ladridos", target: 9 },
           { text: "Esperar y escuchar atentamente", target: 10 }
         ]
       },
       9: {
         title: "Nodo 9: Correr",
         depth: "Nivel 5 de interacción",
-        desc: "Echas a correr a toda prisa sorteando ramas y bancos, guiado por los ladridos distantes que resuenan entre los eucaliptos.",
-        svgKey: "correr",
+        desc: "Echas a correr a toda velocidad esquivando ramas y bancos, guiado por los ecos de los ladridos que retumban en el parque.",
+        artKey: "correr",
         choices: [
-          { text: "Alcanzar el claro", target: 11 }
+          { text: "Llegar al claro", target: 11 }
         ]
       },
       10: {
         title: "Nodo 10: Esperar",
         depth: "Nivel 5 de interacción",
-        desc: "Contienes la respiración y guardas absoluto reposo. Entre el rumor de las copas de los árboles, distingues con claridad un gemido alegre.",
-        svgKey: "esperar",
+        desc: "Te detienes en silencio conteniendo la respiración. Tras unos segundos, distingues un gemido alegre detrás de un gran árbol.",
+        artKey: "esperar",
         choices: [
           { text: "Acercarte despacio", target: 11 }
         ]
@@ -768,55 +1140,62 @@
       11: {
         title: "Nodo 11: ¡Encuentro!",
         depth: "Nivel 5 de interacción",
-        desc: "¡Es él! Detrás de un grueso tronco asoma Toby, moviendo la cola de un lado a otro y corriendo a tus brazos.",
+        desc: "¡Ahí está Toby! Sano, salvo y saltando de alegría a tus brazos con la cola batiendo como hélice.",
         isVideo: true,
-        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+        videoKey: "video3",
+        videoTitle: "Pieza Audiovisual 3: El reencuentro emotivo",
         choices: [
           { text: "Llevar a Toby de regreso a casa", target: 12 }
         ]
       },
       12: {
-        title: "Nodo 12: Regreso seguro",
+        title: "Nodo 12: Regreso seguro a casa",
         depth: "Desenlace final",
-        desc: "Le abrochas la correa con alivio. El sol empieza a caer mientras caminan juntos de vuelta a casa. Toby está a salvo.",
-        svgKey: "final_seguir",
+        desc: "Le abrochas la correa con tranquilidad. El sol se oculta y ambos caminan juntos de vuelta a casa.",
+        artKey: "final_seguir",
         choices: [
-          { text: "🔄 Volver a empezar la historia", target: 1 }
+          { text: "🔄 Reiniciar historia interactiva", target: 1 }
         ]
       }
     };
 
-    let currentNode = 1;
-    let visitedNodes = new Set([1]);
-    let collectedClues = new Set();
+    let activeNodeId = 1;
+    let visitedNodesSet = new Set([1]);
+    let cluesSet = new Set();
+
+    let isPlaying = true;
+    let videoProgress = 0;
+    let videoLoopTimer = null;
 
     function renderNode(id) {
-      currentNode = id;
-      visitedNodes.add(id);
+      activeNodeId = id;
+      visitedNodesSet.add(id);
       const data = nodes[id];
 
-      document.getElementById('nodeTitle').innerText = data.title;
-      document.getElementById('nodeDepth').innerText = data.depth;
-      document.getElementById('nodeDesc').innerText = data.desc;
+      document.getElementById('nodeTitleTxt').innerText = data.title;
+      document.getElementById('nodeDepthTxt').innerText = data.depth;
+      document.getElementById('nodeDescTxt').innerText = data.desc;
 
-      const sketchContainer = document.getElementById('sketchContainer');
-      const videoCanvas = document.getElementById('videoCanvas');
-      const videoElem = document.getElementById('sceneVideo');
-      const hotspot = document.getElementById('hotspot');
+      const artStage = document.getElementById('artStage');
+      const videoContainer = document.getElementById('videoContainer');
+      const videoAnimArea = document.getElementById('videoAnimArea');
+      const videoTitleBadge = document.getElementById('videoTitleBadge');
+      const hotspot = document.getElementById('hotspotMarker');
+
+      clearInterval(videoLoopTimer);
 
       if (data.isVideo) {
-        sketchContainer.style.display = 'none';
-        videoCanvas.style.display = 'block';
-        videoElem.src = data.videoUrl;
-        videoElem.play().catch(() => {});
+        artStage.style.display = 'none';
+        videoContainer.style.display = 'block';
+        videoTitleBadge.innerText = data.videoTitle;
+        videoAnimArea.innerHTML = videoScenes[data.videoKey];
+        startVideoPlayback();
       } else {
-        videoCanvas.style.display = 'none';
-        videoElem.pause();
-        sketchContainer.style.display = 'block';
-        sketchContainer.innerHTML = pencilScenes[data.svgKey] || '';
+        videoContainer.style.display = 'none';
+        artStage.style.display = 'block';
+        artStage.innerHTML = illustrationScenes[data.artKey] || '';
       }
 
-      // Hotspot interactivo (Control Exploratorio 1)
       if (data.hotspot) {
         hotspot.style.display = 'flex';
         hotspot.style.top = data.hotspot.top;
@@ -825,54 +1204,77 @@
         hotspot.style.display = 'none';
       }
 
-      // Opciones bifurcadas
-      const choicesRow = document.getElementById('choicesRow');
-      choicesRow.innerHTML = '';
-      data.choices.forEach(choice => {
+      const choicesGrid = document.getElementById('choicesGrid');
+      choicesGrid.innerHTML = '';
+      data.choices.forEach(c => {
         const btn = document.createElement('button');
-        btn.className = 'choice-card';
-        btn.innerHTML = `<span>${choice.text}</span> <span>✍️</span>`;
+        btn.className = 'choice-btn';
+        btn.innerHTML = `<span>${c.text}</span> <span>➔</span>`;
         btn.onclick = () => {
-          playPaperPencilSound();
-          renderNode(choice.target);
+          playAudioFx('step');
+          renderNode(c.target);
         };
-        choicesRow.appendChild(btn);
+        choicesGrid.appendChild(btn);
       });
 
-      updateMap();
+      renderMap();
     }
 
-    function inspectClue() {
-      const data = nodes[currentNode];
+    function startVideoPlayback() {
+      isPlaying = true;
+      videoProgress = 0;
+      document.getElementById('playBtn').innerText = '⏸ Pausa';
+      playAudioFx('bark');
+
+      videoLoopTimer = setInterval(() => {
+        if (isPlaying) {
+          videoProgress += 2;
+          if (videoProgress > 100) videoProgress = 0;
+          document.getElementById('timeProgress').style.width = videoProgress + '%';
+          const sec = Math.floor((videoProgress / 100) * 5);
+          document.getElementById('timerText').innerText = `00:0${sec} / 00:05`;
+        }
+      }, 100);
+    }
+
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      document.getElementById('playBtn').innerText = isPlaying ? '⏸ Pausa' : '▶ Play';
+    }
+
+    function triggerHotspot() {
+      const data = nodes[activeNodeId];
       if (data.hotspot) {
-        playPaperPencilSound();
-        collectedClues.add(data.hotspot.text);
-        document.getElementById('clueCount').innerText = collectedClues.size;
-        updateCluesList();
-        alert(`✏️ Anotado en la libreta:\n\n${data.hotspot.text}`);
+        playAudioFx('clue');
+        cluesSet.add(data.hotspot.text);
+        document.getElementById('clueBadge').innerText = cluesSet.size;
+        updateCluesModal();
+        alert(`🔍 Pista registrada en tu libreta:
+
+${data.hotspot.text}`);
       }
     }
 
-    function updateCluesList() {
-      const list = document.getElementById('cluesList');
-      if (collectedClues.size === 0) {
-        list.innerHTML = '<li>Aún no has anotado pistas en esta página.</li>';
+    function updateCluesModal() {
+      const list = document.getElementById('cluesListUl');
+      if (cluesSet.size === 0) {
+        list.innerHTML = '<li>Aún no has registrado pistas en este nodo.</li>';
       } else {
-        list.innerHTML = Array.from(collectedClues).map(c => `<li>✎ ${c}</li>`).join('');
+        list.innerHTML = Array.from(cluesSet).map(c => `<li>✎ ${c}</li>`).join('');
       }
     }
 
-    function updateMap() {
-      const grid = document.getElementById('mapGrid');
-      grid.innerHTML = '';
+    function renderMap() {
+      const container = document.getElementById('mapPills');
+      container.innerHTML = '';
       Object.keys(nodes).forEach(key => {
         const nId = parseInt(key);
-        const tag = document.createElement('div');
-        tag.className = 'node-tag';
-        if (nId === currentNode) tag.classList.add('current');
-        else if (visitedNodes.has(nId)) tag.classList.add('visited');
-        tag.innerText = nodes[nId].title;
-        grid.appendChild(tag);
+        const pill = document.createElement('div');
+        pill.className = 'node-pill';
+        if (nId === activeNodeId) pill.classList.add('current');
+        else if (visitedNodesSet.has(nId)) pill.classList.add('visited');
+        pill.innerText = nodes[nId].title;
+        container.appendChild(pill);
       });
     }
 
@@ -884,7 +1286,6 @@
       document.getElementById(id).style.display = 'none';
     }
 
-    // Iniciar en el primer nodo
     renderNode(1);
   </script>
 </body>
